@@ -30,9 +30,18 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
+    // Retrofit + Gson converter
+    val retrofitVersion = "3.0.0"
+    implementation("com.squareup.retrofit3:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit3:converter-gson:$retrofitVersion")
+
+
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
@@ -41,4 +50,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+
 }
