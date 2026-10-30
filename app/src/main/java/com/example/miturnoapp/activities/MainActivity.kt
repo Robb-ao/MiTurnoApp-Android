@@ -125,14 +125,16 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val holidays = response.body() ?: emptyList()
 
-                    // Filtra días
-                    val octoberHolidays = holidays.filter { it.date.startsWith("2026-10") }
-                        .map { it.date.split("-").last().toInt().toString() }
+                    val octoberHolidaysMap = holidays.filter { it.date.startsWith("2026-10") }
+                        .associate {
+                            val dayNumber = it.date.split("-").last().trim().toInt().toString()
+                            dayNumber to it.name
+                        }
 
-                    calendarAdapter.updateHolidays(octoberHolidays)
+                    // Le pasamos el diccionario completo al adaptador
+                    calendarAdapter.updateHolidaysMap(octoberHolidaysMap)
 
-                    // Mensaje para verificar si internet respondio con exito
-                    Toast.makeText(this@MainActivity, "Festivos Octubre: ${octoberHolidays.size}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, "Festivos Octubre: ${octoberHolidaysMap.size}", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this@MainActivity, "Error en el servidor: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }

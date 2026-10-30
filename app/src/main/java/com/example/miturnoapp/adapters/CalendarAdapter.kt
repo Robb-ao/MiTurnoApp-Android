@@ -2,6 +2,7 @@ package com.example.miturnoapp.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miturnoapp.databinding.ItemCalendarDayBinding
 
@@ -12,8 +13,8 @@ class CalendarAdapter(
 
     // Lista de días seleccionados
     private val selectedDays = mutableListOf<String>()
-    // Lista de dias festivos
-    private val holidayDays = mutableListOf<String>()
+    // Diccionario de dias festivos (Dia -> Nombre del Festivo)
+    private val holidayMap = mutableMapOf<String, String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         val binding = ItemCalendarDayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,10 +27,10 @@ class CalendarAdapter(
 
     override fun getItemCount(): Int = dayList.size
 
-    // Actualiza la lista de festivos y repinta la malla
-    fun updateHolidays(holidays: List<String>) {
-        holidayDays.clear()
-        holidayDays.addAll(holidays)
+    // Recibe el diccionario de festivos y repinta
+    fun updateHolidaysMap(holidays: Map<String, String>) {
+        holidayMap.clear()
+        holidayMap.putAll(holidays)
         notifyDataSetChanged()
     }
 
@@ -43,7 +44,7 @@ class CalendarAdapter(
 
             if (day.isNotEmpty()) {
                 // Si el dia es festivo, lo pinta de rojo suave
-                if (holidayDays.contains(day)) {
+                if (holidayMap.containsKey(day)) {
                     binding.flDayBackground.setBackgroundColor(android.graphics.Color.parseColor("#FFCDD2"))
                 }
                 // Si esta seleccionado por el usuario, lo pinta de gris
@@ -51,11 +52,17 @@ class CalendarAdapter(
                     binding.flDayBackground.setBackgroundColor(android.graphics.Color.LTGRAY)
                 }
 
-                // Click para seleccionar/deseleccionar día
+                // Click para seleccionar/deseleccionar día o ver festivo
                 binding.root.setOnClickListener {
+                    // Si el dia es festivo, muestra el flotante con el motivo antes de seleccionar
+                    if (holidayMap.containsKey(day)) {
+                        val holidayName = holidayMap[day]
+                        Toast.makeText(binding.root.context, "🎉 Holiday: $holidayName", Toast.LENGTH_SHORT).show()
+                    }
+
                     if (selectedDays.contains(day)) {
                         selectedDays.remove(day)
-                        if (holidayDays.contains(day)) {
+                        if (holidayMap.containsKey(day)) {
                             binding.flDayBackground.setBackgroundColor(android.graphics.Color.parseColor("#FFCDD2"))
                         } else {
                             binding.flDayBackground.setBackgroundColor(android.graphics.Color.TRANSPARENT)
@@ -73,3 +80,4 @@ class CalendarAdapter(
     // Devuelve los días seleccionados
     fun getSelectedDays(): List<String> = selectedDays
 }
+
