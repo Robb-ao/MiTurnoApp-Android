@@ -38,8 +38,8 @@ android {
 dependencies {
     // Retrofit + Gson converter
     val retrofitVersion = "3.0.0"
-    implementation("com.squareup.retrofit3:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit3:converter-gson:$retrofitVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
 
     implementation(libs.androidx.activity.ktx)
