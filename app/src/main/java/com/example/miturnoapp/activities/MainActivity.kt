@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Activamos e inflamos la vista
+        // Activa e infla la vista
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

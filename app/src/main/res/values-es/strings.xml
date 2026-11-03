@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Info de la App -->
+    <string name="app_name">MiTurnoApp</string>
+
+    <!-- Pantalla de Sesión -->
+    <string name="welcome_title">Bienvenido a MiTurno App</string>
+    <string name="hint_enter_name">Introduce tu nombre</string>
+    <string name="btn_get_started">Comenzar</string>
+
+    <!-- Pantalla Principal y Calendario -->
+    <string name="main_title">Mi Calendario de Turnos</string>
+    <string name="btn_logout">Cerrar Sesión</string>
+    <string name="holiday_label">Día Festivo</string>
+</resources>
+

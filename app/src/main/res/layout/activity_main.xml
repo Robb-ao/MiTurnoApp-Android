@@ -1,79 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://android.com" xmlns:tools="http://android.com"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    android:background="@color/background_app"
+    tools:context="com.example.miturnoapp.activities.MainActivity">
 
-    <!-- Contenedor Principal  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <!-- Saludo -->
-        <TextView
-            android:id="@+id/tvUserHello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Hello, User!"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="Hello, Carlos!" />
+        <!-- Insertamos la barra superior -->
+        <include layout="@layout/layout_header" />
 
-        <!-- Subtítulo del Mes Actual -->
-        <TextView
-            android:id="@+id/tvCurrentMonth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="October 2026"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textStyle="normal" />
+        <!-- Insertamos el navegador de meses -->
+        <include layout="@layout/layout_month_navigator" />
 
-        <!-- Iniciales de los dias de la semana -->
-        <LinearLayout
+        <!-- Hueco para el calendario de turnos -->
+        <FrameLayout
+            android:id="@+id/calendarContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Mon" android:gravity="center" android:textStyle="bold" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tue" android:gravity="center" android:textStyle="bold" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Wed" android:gravity="center" android:textStyle="bold" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Thu" android:gravity="center" android:textStyle="bold" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Fri" android:gravity="center" android:textStyle="bold" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sat" android:gravity="center" android:textStyle="bold" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sun" android:gravity="center" android:textStyle="bold" />
-        </LinearLayout>
-
-
-
-        <!-- La Rejilla del Calendario Mensual (7 Columnas) -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCalendarGrid"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="7" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
-
-    <!-- Botón Flotante (FAB) para Asignar Turnos -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAssignShift"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:contentDescription="Assign Shift"
-        app:icon="@android:drawable/ic_menu_edit"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
