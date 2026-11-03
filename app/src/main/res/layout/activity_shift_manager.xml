@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://android.com"
+    xmlns:tools="http://android.com"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".activities.ShiftManagerActivity">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp">
+
+        <!-- Título de la pantalla -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create New Shift"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Etiqueta informativa -->
+        <TextView
+            android:id="@+id/tvLabelInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shift Name (e.g., Morning, Night)"
+            android:textSize="14sp" />
+
+        <!-- Campo para escribir el nombre del turno -->
+        <EditText
+            android:id="@+id/etShiftName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Enter shift name"
+            android:inputType="textCapSentences"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Etiqueta informativa de Horarios -->
+        <TextView
+            android:id="@+id/tvLabelHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shift Hours"
+            android:textSize="14sp" />
+
+        <!-- Contenedor horizontal para alinear las dos horas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
+
+            <!-- Entrada: Hora Inicio -->
+            <EditText
+                android:id="@+id/etStartTime"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="Start (14:00)"
+                android:focusable="false"
+                android:clickable="true"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Entrada: Hora Fin -->
+            <EditText
+                android:id="@+id/etEndTime"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="End (22:00)"
+                android:focusable="false"
+                android:clickable="true"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- Sección de Personalización de Color -->
+        <TextView
+            android:id="@+id/tvLabelColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shift Color"
+            android:textSize="14sp" />
+
+        <!-- Fila limpia para el Selector de Color -->
+        <LinearLayout
+            android:id="@+id/llColorContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select a custom color for this shift"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="14sp" />
+
+            <!-- Círculo interactivo moderno -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnPickColor"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp"
+                app:cardBackgroundColor="@android:color/holo_blue_light" />
+        </LinearLayout>
+
+        <!-- Botón para Guardar el Turno -->
+        <Button
+            android:id="@+id/btnSaveShift"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Save Shift"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

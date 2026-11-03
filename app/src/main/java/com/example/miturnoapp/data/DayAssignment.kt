@@ -11,7 +11,6 @@ data class DayAssignment(
         const val COLUMN_NAME_SHIFT_ID = "assigned_shift_id"
         const val COLUMN_NAME_NOTES = "notes_text"
 
-        // Comando SQL relacional vinculando la clave foránea a la tabla de arriba
         const val SQL_CREATE_TABLE = "CREATE TABLE $TABLE_NAME (" +
                 "$COLUMN_NAME_DATE TEXT PRIMARY KEY, " +
                 "$COLUMN_NAME_SHIFT_ID INTEGER, " +

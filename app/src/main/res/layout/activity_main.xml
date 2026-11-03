@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://android.com"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,16 +26,45 @@
             android:textStyle="bold"
             tools:text="Hello, Carlos!" />
 
-        <!-- Subtítulo del Mes Actual -->
-        <TextView
-            android:id="@+id/tvCurrentMonth"
-            android:layout_width="wrap_content"
+        <!-- Control de Navegación de Meses -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="October 2026"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textStyle="normal" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <!-- Flecha Mes Anterior -->
+            <ImageButton
+                android:id="@+id/btnPreviousMonth"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Previous Month"
+                android:src="@drawable/ic_previous_month"
+                app:tint="?attr/colorPrimary" />
+
+            <!-- Mes Actual -->
+            <TextView
+                android:id="@+id/tvCurrentMonth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="October 2026"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Flecha Mes Siguiente -->
+            <ImageButton
+                android:id="@+id/btnNextMonth"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Next Month"
+                android:src="@drawable/ic_next_month"
+                app:tint="?attr/colorPrimary" />
+        </LinearLayout>
 
         <!-- Iniciales de los dias de la semana -->
         <LinearLayout
@@ -52,8 +81,6 @@
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sun" android:gravity="center" android:textStyle="bold" />
         </LinearLayout>
 
-
-
         <!-- La Rejilla del Calendario Mensual (7 Columnas) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCalendarGrid"
@@ -65,15 +92,14 @@
 
     </LinearLayout>
 
-    <!-- Botón Flotante (FAB) para Asignar Turnos -->
+    <!-- Botón Flotante con el ID original restaurado para ViewBinding -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAssignShift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="Assign Shift"
-        app:icon="@android:drawable/ic_menu_edit"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        android:contentDescription="Manage Shifts"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
