@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://android.com" xmlns:tools="http://android.com"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://android.com"
+    xmlns:tools="http://android.com"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_app"
@@ -8,34 +10,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- Subtítulo del Mes Actual -->
+        <!-- Saludo Usuario -->
         <TextView
-            android:id="@+id/tvCurrentMonth"
+            android:id="@+id/tvUserHello"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="October 2026"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textStyle="normal" />
+            android:text="Hello, User!"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Insertamos el navegador de meses -->
-        <include layout="@layout/layout_month_navigator" />
+        <include
+            android:id="@+id/layoutMonthNavigator"
+            layout="@layout/layout_month_navigator" />
 
 
-
-        <!-- La Rejilla del Calendario Mensual (7 Columnas) -->
+        <!-- Calendario -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCalendarGrid"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
-    <!-- Botón Flotante (FAB) para Asignar Turnos -->
+    <!-- Boton Flotante -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAssignShift"
         android:layout_width="wrap_content"

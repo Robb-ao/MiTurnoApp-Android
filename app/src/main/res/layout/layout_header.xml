@@ -16,7 +16,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!-- Icono del Calendario en Azul Premium -->
+        <!-- Icono del Calendario -->
         <View
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -47,7 +47,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Información del Perfil Derecha -->
+    <!-- Información del Perfil -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Foto de Perfil Circular usando un CardView -->
+        <!-- Foto de Perfil -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/black"
+                android:src="@android:color/black"
                 tools:ignore="ContentDescription" />
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
