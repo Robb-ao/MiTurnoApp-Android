@@ -4,58 +4,49 @@
     xmlns:tools="http://android.com"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingHorizontal="16dp"
-    android:paddingTop="16dp"
-    android:gravity="center_vertical">
+    android:paddingTop="16dp">
 
-    <!-- Título Grande del Mes Seleccionado -->
-    <TextView
-        android:id="@+id/tvCurrentMonth"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Octubre 2024"
-        android:textColor="@color/text_main"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <!-- Botón "Hoy" en forma de Cápsula Tonal -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnToday"
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginEnd="8dp"
-        android:text="Hoy"
-        android:textSize="12sp"
-        app:cornerRadius="999dp"
-        app:paddingStart="12dp"
-        app:paddingEnd="12dp" />
-
-    <!-- Contenedor de Controles de Flechas Rápidas -->
+    <!-- Contenedor de Controles de Flechas -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center"
         android:padding="2dp">
 
+        <!-- Flecha Izquierda -->
         <ImageButton
             android:id="@+id/btnPrevMonth"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_media_previous"
+            android:src="@drawable/ic_previous_month"
             tools:ignore="ContentDescription" />
 
+        <!-- Mes Seleccionado -->
+        <TextView
+            android:id="@+id/tvCurrentMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Octubre 2024"
+            android:textColor="@color/text_main"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Flecha Derecha -->
         <ImageButton
             android:id="@+id/btnNextMonth"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_media_next"
+            android:src="@drawable/ic_next_month"
             tools:ignore="ContentDescription" />
+
     </LinearLayout>
 </LinearLayout>

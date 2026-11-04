@@ -24,7 +24,7 @@ class HolidayRepository(private val context: Context) {
                 if (response.isSuccessful) {
                     val holidays = response.body() ?: emptyList()
 
-                    // Formateamos el mes a dos dígitos (ej: 5 -> "05", 10 -> "10") para el filtro de la API
+                    // Formateamos el mes a dos dígitos para el filtro de la API
                     val monthString = String.format("%02d", month)
                     val prefix = "$year-$monthString"
 
@@ -35,7 +35,7 @@ class HolidayRepository(private val context: Context) {
                             dayNumber to it.name
                         }
 
-                    // Devolvemos el diccionario de festivos de ese mes concreto
+                    // Devolvemos el diccionario de festivos
                     onResult(monthHolidaysMap)
                 } else {
                     Toast.makeText(context, "Error en el servidor: ${response.code()}", Toast.LENGTH_SHORT).show()

@@ -59,4 +59,33 @@ class ShiftTemplateDAO(context: Context) {
         db.close()
         return id
     }
+
+    // Lee el turno asignado a una fecha específica (Formato: AAAA-MM-DD)
+    fun getShiftForDate(date: String): ShiftTemplate? {
+        val db = dbManager.readableDatabase
+        var shift: ShiftTemplate? = null
+
+        val query = """
+            SELECT s.* FROM ${ShiftTemplate.TABLE_NAME} s
+            INNER JOIN ${DayAssignment.TABLE_NAME} a 
+            ON s.${ShiftTemplate.COLUMN_NAME_ID} = a.${DayAssignment.COLUMN_NAME_SHIFT_ID}
+            WHERE a.${DayAssignment.COLUMN_NAME_DATE} = ?
+        """
+
+        val cursor: Cursor = db.rawQuery(query, arrayOf(date))
+
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShiftTemplate.COLUMN_NAME_ID))
+            val label = cursor.getString(cursor.getColumnIndexOrThrow(ShiftTemplate.COLUMN_NAME_LABEL))
+            val start = cursor.getString(cursor.getColumnIndexOrThrow(ShiftTemplate.COLUMN_NAME_START))
+            val end = cursor.getString(cursor.getColumnIndexOrThrow(ShiftTemplate.COLUMN_NAME_END))
+            val color = cursor.getString(cursor.getColumnIndexOrThrow(ShiftTemplate.COLUMN_NAME_COLOR))
+
+            shift = ShiftTemplate(id, label, start, end, color)
+        }
+
+        cursor.close()
+        db.close()
+        return shift
+    }
 }

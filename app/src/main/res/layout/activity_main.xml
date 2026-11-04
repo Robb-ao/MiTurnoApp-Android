@@ -7,47 +7,145 @@
     android:background="@color/background_app"
     tools:context="com.example.miturnoapp.activities.MainActivity">
 
-    <LinearLayout
+    <!-- CONTENEDOR PRINCIPAL CON SCROLL -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Saludo Usuario -->
-        <TextView
-            android:id="@+id/tvUserHello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello, User!"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
-
-        <include
-            android:id="@+id/layoutMonthNavigator"
-            layout="@layout/layout_month_navigator" />
-
-
-        <!-- Calendario -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCalendarGrid"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="8dp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    </LinearLayout>
+            <!-- 1. CABECERA -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
-    <!-- Boton Flotante -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TurnoApp"
+                        android:textColor="#1A237E"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CALENDARIO"
+                        android:textColor="#00B0FF"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvUserHello"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Dra. Elena García"
+                            android:textColor="#212121"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Medicina Interna"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@android:drawable/sym_def_app_icon"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- 2. NAVEGADOR DE MESES -->
+            <include
+                android:id="@+id/layoutMonthNavigator"
+                layout="@layout/layout_month_navigator" />
+
+            <!-- 3. TARJETAS DE ESTADÍSTICAS -->
+            <include
+                android:id="@+id/layoutStatsCards"
+                layout="@layout/layout_stats_cards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                tools:layout_height="60dp" />
+
+            <!-- 4. RECYCLERVIEW DEL CALENDARIO -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCalendarGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- 5. DETALLE DEL DÍA SELECCIONADO -->
+            <include
+                android:id="@+id/layoutDayDetail"
+                layout="@layout/layout_day_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                tools:layout_height="180dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 6. BARRA DE NAVEGACIÓN INFERIOR NATIVA -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFF"
+        app:itemIconTint="#0A1128"
+        app:itemTextColor="#0A1128"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <!-- 7. BOTÓN FLOTANTE CENTRAL -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAssignShift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:contentDescription="Assign Shift"
-        app:icon="@android:drawable/ic_menu_edit"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="32dp"
+        app:backgroundTint="#0A1128"
+        app:fabSize="normal"
+        app:maxImageSize="24dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="#FFFFFF" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
