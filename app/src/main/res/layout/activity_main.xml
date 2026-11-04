@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://android.com"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://android.com"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,10 +10,11 @@
 
     <!-- CONTENEDOR PRINCIPAL CON SCROLL -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="80dp"
+        android:paddingBottom="96dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -35,7 +37,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TurnoApp"
+                        android:text="MiTurnoApp"
                         android:textColor="#1A237E"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -122,30 +124,30 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- 6. BARRA DE NAVEGACIÓN INFERIOR NATIVA -->
+    <!-- 6. BARRA DE NAVEGACIÓN INFERIOR NATIVA (Fija afuera del scroll) -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_gravity="bottom"
         android:background="#FFFFFF"
-        app:itemIconTint="#0A1128"
+        app:itemIconTint="@null"
         app:itemTextColor="#0A1128"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 
-    <!-- 7. BOTÓN FLOTANTE CENTRAL -->
+    <!-- 7. BOTÓN FLOTANTE CENTRAL (Anclado sobre la barra inferior) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAssignShift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="32dp"
         app:backgroundTint="#0A1128"
         app:fabSize="normal"
         app:maxImageSize="24dp"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         app:srcCompat="@android:drawable/ic_input_add"
-        app:tint="#FFFFFF" />
+        app:tint="#FFFFFF"
+        app:layout_anchor="@id/bottomNavigation"
+        app:layout_anchorGravity="top|center_horizontal" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

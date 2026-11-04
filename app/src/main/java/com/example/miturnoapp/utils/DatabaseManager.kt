@@ -8,26 +8,34 @@ import com.example.miturnoapp.data.ShiftTemplate
 
 class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
+    // Configuración inicial de base de datos
+    override fun onConfigure(db: SQLiteDatabase) {
+        super.onConfigure(db)
+        // Activa el soporte nativo de claves foráneas en SQLite
+        db.setForeignKeyConstraintsEnabled(true)
+    }
+
+    // Creación de esquemas nativos
     override fun onCreate(db: SQLiteDatabase) {
-        // Llama a la creación de las dos tablas
         db.execSQL(ShiftTemplate.SQL_CREATE_TABLE)
         db.execSQL(DayAssignment.SQL_CREATE_TABLE)
     }
 
+    // Actualización de versión de base de datos
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        onDestroy(db)
+        clearTables(db)
         onCreate(db)
     }
 
-    fun onDestroy(db: SQLiteDatabase) {
-        // Borramos primero la tabla del calendario porque depende de la de turnos
+    // Eliminación segura de tablas existentes
+    private fun clearTables(db: SQLiteDatabase) {
         db.execSQL(DayAssignment.SQL_DROP_TABLE)
         db.execSQL(ShiftTemplate.SQL_DROP_TABLE)
     }
 
+    // Constantes de configuración global
     companion object {
         const val DATABASE_VERSION = 1
         const val DATABASE_NAME = "MiTurnoApp.db"
     }
 }
-

@@ -3,6 +3,7 @@ package com.example.miturnoapp.data
 import com.google.gson.annotations.SerializedName
 
 data class HolidayResponse(
-    @SerializedName("date") val date: String,
-    @SerializedName("localName") val localName: String
+    @SerializedName(value = "date") val date: String,
+    @SerializedName(value = "localName") val localName: String,
+    @SerializedName(value = "name") val name: String
 )

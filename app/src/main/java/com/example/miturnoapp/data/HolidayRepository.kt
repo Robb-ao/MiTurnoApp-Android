@@ -2,10 +2,10 @@ package com.example.miturnoapp.data
 
 import android.content.Context
 import android.widget.Toast
-import com.example.miturnoapp.ApiService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -18,33 +18,35 @@ class HolidayRepository(private val context: Context) {
 
     private val apiService = retrofit.create(ApiService::class.java)
 
+    // Consulta de festivos mensuales
     fun fetchHolidaysForMonth(year: Int, month: Int, onResult: (Map<String, String>) -> Unit) {
-        apiService.getHolidays("ES", year).enqueue(object : Callback<List<PublicHoliday>> {
-            override fun onResponse(call: Call<List<PublicHoliday>>, response: Response<List<PublicHoliday>>) {
-                if (response.isSuccessful) {
-                    val holidays = response.body() ?: emptyList()
+        // Hilo secundario IO
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Petición HTTP
+                val holidays = apiService.getPublicHolidays(year, "ES")
 
-                    // Formateamos el mes a dos dígitos para el filtro de la API
-                    val monthString = String.format("%02d", month)
-                    val prefix = "$year-$monthString"
+                // Formato de mes
+                val monthString = String.format("%02d", month)
+                val prefix = "$year-$monthString"
 
-                    // Filtramos por el prefijo dinámico del año y mes actual
-                    val monthHolidaysMap = holidays.filter { it.date.startsWith(prefix) }
-                        .associate {
-                            val dayNumber = it.date.split("-").last().trim().toInt().toString()
-                            dayNumber to it.name
-                        }
+                // Filtrado y mapeo
+                val monthHolidaysMap = holidays.filter { it.date.startsWith(prefix) }
+                    .associate {
+                        val dayNumber = it.date.split("-").last().trim().toInt().toString()
+                        dayNumber to it.localName
+                    }
 
-                    // Devolvemos el diccionario de festivos
+                // Respuesta a la interfaz
+                withContext(Dispatchers.Main) {
                     onResult(monthHolidaysMap)
-                } else {
-                    Toast.makeText(context, "Error en el servidor: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                // Control de errores
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "Fallo de red: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-
-            override fun onFailure(call: Call<List<PublicHoliday>>, t: Throwable) {
-                Toast.makeText(context, "Fallo de red: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+        }
     }
 }

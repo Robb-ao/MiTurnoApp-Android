@@ -1,14 +1,13 @@
-package com.example.miturnoapp
+package com.example.miturnoapp.data
 
-import com.example.miturnoapp.data.PublicHoliday
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiService {
-    @GET("api/v4/Holidays/{countryCode}/{year}")
-    fun getHolidays(
-        @Path("countryCode") countryCode: String,
-        @Path("year") year: Int
-    ): Call<List<PublicHoliday>>
+
+    @GET("api/v4/PublicHolidays/{year}/{countryCode}")
+    suspend fun getPublicHolidays(
+        @Path("year") year: Int,
+        @Path("countryCode") countryCode: String
+    ): List<HolidayResponse>
 }
