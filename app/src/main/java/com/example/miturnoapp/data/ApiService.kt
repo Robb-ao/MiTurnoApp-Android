@@ -4,10 +4,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiService {
-
-    @GET("api/v4/PublicHolidays/{year}/{countryCode}")
+    @GET("api/v4/Holidays/{countryCode}/{year}")
     suspend fun getPublicHolidays(
-        @Path("year") year: Int,
-        @Path("countryCode") countryCode: String
+        @Path("countryCode") countryCode: String,
+        @Path("year") year: Int
     ): List<HolidayResponse>
 }

@@ -1,52 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://android.com"
-    xmlns:tools="http://android.com"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F9FAFB"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_vertical"
-    android:background="?android:attr/windowBackground"
-    tools:context="com.example.miturnoapp.activities.SessionActivity">
+    android:padding="24dp">
 
-    <!--  Bienvenida  -->
-    <TextView
-        android:id="@+id/tvWelcomeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_title"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorPrimary"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="32dp" />
-
-    <!-- Nombre del Usuario -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilName"
+    <!-- Tarjeta contenedora central para dar un aspecto más profesional -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_enter_name"
-        app:boxBackgroundMode="outline"
-        android:layout_marginBottom="24dp">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:strokeColor="#E5E7EB"
+        app:strokeWidth="1dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:maxLines="1" />
+            android:orientation="vertical"
+            android:padding="24dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Título principal -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TurnoApp"
+                android:textColor="#0A1128"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
 
-    <!-- Botón de Ingreso  -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGetStarted"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="@string/btn_get_started"
-        android:textSize="16sp"
-        app:cornerRadius="8dp" />
+            <!-- Subtítulo descriptivo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Organiza tu cuadrante de turnos mensuales"
+                android:textColor="#6B7280"
+                android:textSize="14sp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Campo de texto para el nombre del usuario -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Introduce tu nombre"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Botón de Acceso Principal -->
+            <Button
+                android:id="@+id/btnGetStarted"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Acceder al Calendario"
+                android:textSize="16sp"
+                app:cornerRadius="8dp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

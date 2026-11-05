@@ -2,19 +2,21 @@ package com.example.miturnoapp.adapters
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miturnoapp.databinding.ItemCalendarDayBinding
 
 class CalendarAdapter(
-    private var dayList: List<String>,
-    private val onDayClick: (String) -> Unit
+    private var days: List<String>,
+    private val onDayClick: (String, String?) -> Unit
 ) : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>() {
 
-    private val selectedDays = mutableListOf<String>()
-    private val holidayMap = mutableMapOf<String, String>()
-    private val assignedShifts = mutableMapOf<String, String>()
+    private var holidaysMap: Map<String, String> = emptyMap()
+    private var assignedShifts: Map<String, String> = emptyMap()
+    private val selectedDays = mutableSetOf<String>()
+
+    inner class CalendarViewHolder(val binding: ItemCalendarDayBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         val binding = ItemCalendarDayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,74 +24,78 @@ class CalendarAdapter(
     }
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
-        holder.bind(dayList[position])
-    }
+        val day = days[position]
+        holder.binding.tvDayNumber.text = day
 
-    override fun getItemCount(): Int = dayList.size
+        if (day.isNotEmpty()) {
+            // Festivos
+            val cleanDay = day.trim().toIntOrNull()?.toString() ?: day
+            val holidayReason = holidaysMap[cleanDay] ?: holidaysMap[day]
 
-    // Actualización de datos del calendario
-    fun updateDays(newDays: List<String>) {
-        this.dayList = newDays
-        selectedDays.clear()
-        notifyDataSetChanged()
-    }
-
-    fun updateHolidaysMap(holidays: Map<String, String>) {
-        holidayMap.clear()
-        holidayMap.putAll(holidays)
-        notifyDataSetChanged()
-    }
-
-    fun updateAssignedShifts(shifts: Map<String, String>) {
-        assignedShifts.clear()
-        assignedShifts.putAll(shifts)
-        notifyDataSetChanged()
-    }
-
-    fun getSelectedDays(): List<String> = selectedDays
-
-    inner class CalendarViewHolder(private val binding: ItemCalendarDayBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(day: String) {
-            binding.tvDayNumber.text = day
-            binding.flDayBackground.setBackgroundColor(Color.TRANSPARENT)
-
-            if (day.isEmpty()) return
-
-            // Renderizado de estados y colores
-            if (selectedDays.contains(day)) {
-                binding.flDayBackground.setBackgroundColor(Color.parseColor("#0A1128"))
-                binding.tvDayNumber.setTextColor(Color.WHITE)
+            if (!holidayReason.isNullOrEmpty()) {
+                holder.binding.tvDayNumber.setTextColor(Color.parseColor("#D32F2F"))
             } else {
-                binding.tvDayNumber.setTextColor(Color.parseColor("#1F2937"))
-
-                if (assignedShifts.containsKey(day)) {
-                    val colorHex = assignedShifts[day] ?: "#FFFFFF"
-                    try {
-                        binding.flDayBackground.setBackgroundColor(Color.parseColor(colorHex))
-                    } catch (e: Exception) {
-                        binding.flDayBackground.setBackgroundColor(Color.TRANSPARENT)
-                    }
-                } else if (holidayMap.containsKey(day)) {
-                    binding.flDayBackground.setBackgroundColor(Color.parseColor("#FFCDD2"))
-                }
+                holder.binding.tvDayNumber.setTextColor(Color.parseColor("#1F2937"))
             }
 
-            // Gestión de clics y selección de celdas
-            binding.root.setOnClickListener {
-                if (holidayMap.containsKey(day)) {
-                    val holidayName = holidayMap[day]
-                    Toast.makeText(binding.root.context, "🎉 Festivo: $holidayName", Toast.LENGTH_SHORT).show()
-                }
+            // Turnos
+            val shiftLabel = assignedShifts[day]
+            if (!shiftLabel.isNullOrEmpty()) {
+                holder.binding.tvShiftLabel.text = shiftLabel
+                holder.binding.tvShiftLabel.visibility = View.VISIBLE
 
+                val lowerLabel = shiftLabel.lowercase()
+                when {
+                    lowerLabel.contains("libre") || lowerLabel.contains("descanso") || lowerLabel.contains("l") -> {
+                        holder.binding.tvShiftLabel.setBackgroundColor(Color.parseColor("#4CAF50"))
+                    }
+                    else -> {
+                        holder.binding.tvShiftLabel.setBackgroundColor(Color.parseColor("#FF9800"))
+                    }
+                }
+            } else {
+                holder.binding.tvShiftLabel.text = ""
+                holder.binding.tvShiftLabel.visibility = View.GONE
+            }
+
+            // Selección
+            holder.binding.root.isSelected = selectedDays.contains(day)
+
+            holder.binding.root.setOnClickListener {
                 if (selectedDays.contains(day)) {
                     selectedDays.remove(day)
                 } else {
                     selectedDays.add(day)
                 }
-                notifyDataSetChanged()
-                onDayClick(day)
+                notifyItemChanged(position)
+                onDayClick(day, holidayReason)
             }
+        } else {
+            // Celda vacía
+            holder.binding.tvDayNumber.text = ""
+            holder.binding.tvShiftLabel.visibility = View.GONE
+            holder.binding.root.isSelected = false
+            holder.binding.root.setOnClickListener(null)
         }
     }
+
+    override fun getItemCount(): Int = days.size
+
+    fun updateDays(newDays: List<String>) {
+        this.days = newDays
+        selectedDays.clear()
+        notifyDataSetChanged()
+    }
+
+    fun updateHolidaysMap(newHolidaysMap: Map<String, String>) {
+        this.holidaysMap = newHolidaysMap
+        notifyDataSetChanged()
+    }
+
+    fun updateAssignedShifts(newShifts: Map<String, String>) {
+        this.assignedShifts = newShifts
+        notifyDataSetChanged()
+    }
+
+    fun getSelectedDays(): List<String> = selectedDays.toList()
 }

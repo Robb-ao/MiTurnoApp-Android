@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Colores Base  -->
+    <!-- Base -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Paleta de Identidad (TurnoApp) -->
-    <color name="brand_primary">#1D29A1</color> <!-- El azul corporativo de la cabecera -->
-    <color name="brand_secondary">#039855</color> <!-- El verde/turquesa del calendario -->
-    <color name="background_app">#F1F5F9</color> <!-- El gris claro limpio del fondo -->
-    <color name="text_main">#0F172A</color> <!-- El gris oscuro para títulos principales -->
+    <!-- Identidad -->
+    <color name="brand_primary">#1E1B4B</color> <!-- Azul oscuro principal -->
+    <color name="brand_secondary">#059669</color> <!-- Verde acento -->
+    <color name="background_app">#F9FAFB</color> <!-- Fondo general -->
+    <color name="text_main">#0A1128</color> <!-- Texto principal -->
 
-    <!-- Colores de Turnos para el Calendario  -->
-    <color name="shift_morning">#F59E0B</color> <!-- Naranja Mañana -->
-    <color name="shift_afternoon">#EA580C</color> <!-- Naranja Tarde -->
-    <color name="shift_night">#4F46E5</color> <!-- Azul/Violeta Noche -->
-    <color name="shift_guard">#0284C7</color> <!-- Cian Guardia -->
-    <color name="cell_free_bg">#D1FAE5</color> <!-- Fondo Verde Menta Suave -->
-    <color name="cell_morning_bg">#FEF3C7</color> <!-- Fondo Amarillo Pastel -->
+    <!-- Turnos -->
+    <color name="shift_morning">#F59E0B</color> <!-- Mañana -->
+    <color name="shift_afternoon">#E67E22</color> <!-- Tarde -->
+    <color name="shift_night">#4F46E5</color> <!-- Noche -->
+    <color name="shift_guard">#0284C7</color> <!-- Guardia -->
+    <color name="cell_free_bg">#D1FAE5</color> <!-- Fondo libre -->
+    <color name="cell_morning_bg">#FEF3C7</color> <!-- Fondo mañana -->
 </resources>

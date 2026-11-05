@@ -1,52 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://android.com"
-    xmlns:tools="http://android.com"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingHorizontal="16dp"
-    android:paddingTop="16dp">
+    android:paddingHorizontal="4dp"
+    android:paddingTop="8dp">
 
-    <!-- Contenedor de Controles de Flechas -->
-    <LinearLayout
+    <!-- Tarjeta contenedora de los controles de meses -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="2dp">
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:strokeColor="#E5E7EB"
+        app:strokeWidth="1dp">
 
-        <!-- Flecha Izquierda -->
-        <ImageButton
-            android:id="@+id/btnPrevMonth"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_previous_month"
-            tools:ignore="ContentDescription" />
-
-        <!-- Mes Seleccionado -->
-        <TextView
-            android:id="@+id/tvCurrentMonth"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Octubre 2024"
-            android:textColor="@color/text_main"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
 
-        <!-- Flecha Derecha -->
-        <ImageButton
-            android:id="@+id/btnNextMonth"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_next_month"
-            tools:ignore="ContentDescription" />
+            <!-- Flecha Izquierda -->
+            <ImageButton
+                android:id="@+id/btnPrevMonth"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_previous_month"
+                app:tint="@color/brand_primary"
+                tools:ignore="ContentDescription" />
 
-    </LinearLayout>
+            <!-- Mes Seleccionado -->
+            <TextView
+                android:id="@+id/tvCurrentMonth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Octubre 2026"
+                android:textColor="@color/text_main"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Flecha Derecha -->
+            <ImageButton
+                android:id="@+id/btnNextMonth"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_next_month"
+                app:tint="@color/brand_primary"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

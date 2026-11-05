@@ -6,45 +6,42 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class HolidayRepository(private val context: Context) {
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://nagerholidays.com")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val apiService = retrofit.create(ApiService::class.java)
-
-    // Consulta de festivos mensuales
+    // Fetch holidays from Nager.Date v4 API
     fun fetchHolidaysForMonth(year: Int, month: Int, onResult: (Map<String, String>) -> Unit) {
-        // Hilo secundario IO
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Petición HTTP
-                val holidays = apiService.getPublicHolidays(year, "ES")
+                // API Request matching v4 order: countryCode first, then year
+                val holidays = RetrofitClient.apiService.getPublicHolidays("ES", year)
 
-                // Formato de mes
                 val monthString = String.format("%02d", month)
                 val prefix = "$year-$monthString"
 
-                // Filtrado y mapeo
-                val monthHolidaysMap = holidays.filter { it.date.startsWith(prefix) }
-                    .associate {
-                        val dayNumber = it.date.split("-").last().trim().toInt().toString()
-                        dayNumber to it.localName
-                    }
+                val monthHolidaysMap = mutableMapOf<String, String>()
 
-                // Respuesta a la interfaz
+                // Filtro simplificado: Solo festivos nacionales (nationalHoliday == true)
+                holidays.filter { it.date.startsWith(prefix) && it.nationalHoliday }.forEach { holiday ->
+                    val parts = holiday.date.split("-")
+                    if (parts.size == 3) {
+                        val rawDay = parts[2]
+                        val cleanDay = rawDay.toIntOrNull()?.toString()
+
+                        if (cleanDay != null) {
+                            // Store both clean and padded day keys
+                            monthHolidaysMap[cleanDay] = holiday.name
+                            monthHolidaysMap[String.format("%02d", cleanDay.toInt())] = holiday.name
+                        }
+                    }
+                }
+
                 withContext(Dispatchers.Main) {
                     onResult(monthHolidaysMap)
                 }
             } catch (e: Exception) {
-                // Control de errores
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "Fallo de red: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Network Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }

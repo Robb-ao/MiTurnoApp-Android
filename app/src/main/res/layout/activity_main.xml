@@ -2,13 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://android.com"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_app"
     tools:context="com.example.miturnoapp.activities.MainActivity">
 
-    <!-- CONTENEDOR PRINCIPAL CON SCROLL -->
+    <!-- Scroll principal -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
@@ -23,79 +23,20 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- 1. CABECERA -->
-            <RelativeLayout
+            <!-- Encabezado -->
+            <include
+                android:id="@+id/layoutTopBar"
+                layout="@layout/layout_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="MiTurnoApp"
-                        android:textColor="#1A237E"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CALENDARIO"
-                        android:textColor="#00B0FF"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:gravity="end"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvUserHello"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dra. Elena García"
-                            android:textColor="#212121"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Medicina Interna"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@android:drawable/sym_def_app_icon"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <!-- 2. NAVEGADOR DE MESES -->
+            <!-- Navegador de Mes -->
             <include
                 android:id="@+id/layoutMonthNavigator"
                 layout="@layout/layout_month_navigator" />
 
-            <!-- 3. TARJETAS DE ESTADÍSTICAS -->
+            <!-- Tarjetas de Estadísticas -->
             <include
                 android:id="@+id/layoutStatsCards"
                 layout="@layout/layout_stats_cards"
@@ -104,15 +45,96 @@
                 android:layout_marginTop="12dp"
                 tools:layout_height="60dp" />
 
-            <!-- 4. RECYCLERVIEW DEL CALENDARIO -->
+            <!-- Días de la Semana -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="LUN"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MAR"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MIÉ"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="JUE"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="VIE"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="SÁB"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="DOM"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main" />
+            </LinearLayout>
+
+            <!-- Calendario -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCalendarGrid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/transparent"
                 android:nestedScrollingEnabled="false" />
 
-            <!-- 5. DETALLE DEL DÍA SELECCIONADO -->
+            <!-- Detalle del Día -->
             <include
                 android:id="@+id/layoutDayDetail"
                 layout="@layout/layout_day_detail"
@@ -124,7 +146,7 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- 6. BARRA DE NAVEGACIÓN INFERIOR NATIVA (Fija afuera del scroll) -->
+    <!-- Navegación Inferior -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -132,21 +154,21 @@
         android:layout_gravity="bottom"
         android:background="#FFFFFF"
         app:itemIconTint="@null"
-        app:itemTextColor="#0A1128"
+        app:itemTextColor="@color/text_main"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 
-    <!-- 7. BOTÓN FLOTANTE CENTRAL (Anclado sobre la barra inferior) -->
+    <!-- Botón Flotante (FAB) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAssignShift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="#0A1128"
+        app:backgroundTint="@color/brand_primary"
         app:fabSize="normal"
         app:maxImageSize="24dp"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         app:srcCompat="@android:drawable/ic_input_add"
-        app:tint="#FFFFFF"
+        app:tint="@color/white"
         app:layout_anchor="@id/bottomNavigation"
         app:layout_anchorGravity="top|center_horizontal" />
 

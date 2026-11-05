@@ -7,7 +7,7 @@ import com.example.miturnoapp.utils.DatabaseManager
 
 class ShiftTemplateDAO(context: Context) {
 
-    // Conexión a Base de Datos
+    // Conexión
     private val dbManager = DatabaseManager(context)
 
     // Inserción de turnos
@@ -24,7 +24,26 @@ class ShiftTemplateDAO(context: Context) {
         return id
     }
 
-    // Consulta de catálogo completo
+    // Actualización de turnos
+    fun updateShift(id: Int, label: String, start: String, end: String, color: String): Int {
+        val db = dbManager.writableDatabase
+        val values = ContentValues().apply {
+            put(ShiftTemplate.COLUMN_NAME_LABEL, label)
+            put(ShiftTemplate.COLUMN_NAME_START, start)
+            put(ShiftTemplate.COLUMN_NAME_END, end)
+            put(ShiftTemplate.COLUMN_NAME_COLOR, color)
+        }
+        val rowsAffected = db.update(
+            ShiftTemplate.TABLE_NAME,
+            values,
+            "${ShiftTemplate.COLUMN_NAME_ID} = ?",
+            arrayOf(id.toString())
+        )
+        db.close()
+        return rowsAffected
+    }
+
+    // Catálogo
     fun getAllShifts(): List<ShiftTemplate> {
         val shiftList = mutableListOf<ShiftTemplate>()
         val db = dbManager.readableDatabase
@@ -46,7 +65,7 @@ class ShiftTemplateDAO(context: Context) {
         return shiftList
     }
 
-    // Almacenamiento de asignación diaria
+    // Asignación diaria
     fun assignShiftToDay(date: String, shiftId: Int, notes: String): Long {
         val db = dbManager.writableDatabase
         val values = ContentValues().apply {
@@ -64,7 +83,7 @@ class ShiftTemplateDAO(context: Context) {
         return id
     }
 
-    // Lectura relacional por fecha
+    // Lectura por fecha
     fun getShiftForDate(date: String): ShiftTemplate? {
         val db = dbManager.readableDatabase
         var shift: ShiftTemplate? = null
@@ -89,5 +108,17 @@ class ShiftTemplateDAO(context: Context) {
         }
         db.close()
         return shift
+    }
+
+    // Eliminación de turno por fecha
+    fun deleteShiftForDate(date: String): Int {
+        val db = dbManager.writableDatabase
+        val rowsAffected = db.delete(
+            DayAssignment.TABLE_NAME,
+            "${DayAssignment.COLUMN_NAME_DATE} = ?",
+            arrayOf(date)
+        )
+        db.close()
+        return rowsAffected
     }
 }
